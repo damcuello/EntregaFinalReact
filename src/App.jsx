@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ItemDetailContainer from './components/ItemDetailContainer.jsx';
 import ItemListContainer from './components/ItemListContainer.jsx';
-import NavBar from './components/NavBar.jsx'
-import Cart from './components/Cart.jsx';
+import NavBar from './components/NavBar';
+import Cart from './components/Cart';
 import React from 'react'
 
 

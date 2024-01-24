@@ -1,6 +1,6 @@
 
 import React from 'react'
-import CartWidget from './CartWidget.jsx';
+import CartWidget from './CartWidget';
 import { Flex, Box, Spacer, Menu, MenuButton, Button, MenuList, MenuItem } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom';
