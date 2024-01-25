@@ -10,15 +10,15 @@ const ItemCount = () => {
     const resta = () => contador > 0 && setContador(contador - 1)
 
 
-    const suma = () => contador < 10 && setContador(contador + 1)   
-    
+    const suma = () => contador < 10 && setContador(contador + 1)
+
     return (
         <div>
-            { contador > 0 ? <Button colorScheme='red' size='sm' onClick= {resta}>Quitar</Button> : <Button disabled>Quitar</Button>}
+            {contador > 0 ? <Button colorScheme='red' size='sm' onClick={resta}>Quitar</Button> : <Button disabled>Quitar</Button>}
             <Button colorScheme='blue' size='md' onClick={mostrarMensaje}>
                 Agregar al Carrito {contador}
             </Button>
-            { contador < 10 ? <Button colorScheme='green' size='sm' onClick= {suma}>Agregar</Button> : <Button disabled>Agregar</Button>}
+            {contador < 10 ? <Button colorScheme='green' size='sm' onClick={suma}>Agregar</Button> : <Button disabled>Agregar</Button>}
         </div>
     )
 }

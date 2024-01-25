@@ -1,30 +1,40 @@
 import React from 'react'
-import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Button } from '@chakra-ui/react'
+import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Button, Center } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 
-const Item = ( {producto} ) => {
+const Item = ({ id, name, stock, category, image }) => {
   return (
     <div>
-      <Card maxW='sm'>
-        <CardBody>
-          <Stack mt='6' spacing='3'>
-            <Heading size='md' color='green'>
-              <img src={producto.imagen} alt={producto.nombre} />
-              <p>Producto: {producto.nombre}</p>
-            </Heading>
-            <Text color='blue'>Categoría: {producto.categoria}</Text>
-          </Stack>
-        </CardBody>
-        <CardFooter>
-          <Link to={`/item/${producto.id}`} >
-            <Button>más detalles</Button>
-          </Link>
-        </CardFooter>
-        <Divider />
-      </Card>
+      <div key={id}>
+        <Center p="1rem">
+          <Card className="card-main">
+            <CardBody>
+              <Image borderRadius="lg" src={image} />
+              <Stack mt="6" spacing="3">
+                <Heading size="md">{name}</Heading>
+
+                <Text color="blue.800" fontSize="l">
+                  Category: {category}
+                </Text>
+                <Text color="red.600" fontSize="xl">
+                  Stock: {stock}
+                </Text>
+              </Stack>
+            </CardBody>
+            <Divider />
+            <CardFooter className="card-footer">
+              <Center className="btn-center">
+                <Button variant="solid" colorScheme="blue">
+                  <Link to={`/item/${id}`}>Details</Link>
+                </Button>
+              </Center>
+            </CardFooter>
+          </Card>
+        </Center>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Item;

@@ -1,32 +1,44 @@
 import React from 'react'
-import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Button } from '@chakra-ui/react'
+import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Image } from '@chakra-ui/react'
 import ItemCount from './ItemCount'
 
 
-const ItemDetail = ( {item} ) => {
+const ItemDetail = ({ item }) => {
   return (
-    <div>
+    <div className='divCardDetallada'>
       <Card maxW='sm'>
         <CardBody>
+          <Image
+            src={item.img}
+            alt='componentes'
+            borderRadius='lg'
+          />
           <Stack mt='6' spacing='3'>
-            <Heading size='md' color='green'>
-              <img src={item.imagen} alt={item.nombre} />
-              <br />
-              <br />
-              <p>Producto: {item.nombre}</p>
-            </Heading>
-            <Text color='blue'>Categoría: {item.categoria}</Text>
-            <Text color='blue'>Descripción: {item.descripcion}</Text>
-            <Text color='blue'>Precio: ${item.precio}</Text>
+            <Heading size='md' className='tituloDetallado'>{item.titulo}</Heading>
+            <Text className='tamDetallado'>
+              Tamaño: {item.categoria}
+            </Text>
+            <Text className='idDetallado'>
+              Id: {item.id}
+            </Text>
+            <Text className='descripcionDetallada'>
+              {item.descripcion}
+            </Text>
+            <Text color='blue.600' fontSize='2xl' className='precioDetallado'>
+              ${item.precio}
+            </Text>
           </Stack>
         </CardBody>
-        <CardFooter>
-          <ItemCount />
-        </CardFooter>
         <Divider />
+        <CardFooter>
+          <ButtonGroup spacing='2'>
+            <ItemCount item={item} />
+          </ButtonGroup>
+        </CardFooter>
       </Card>
     </div>
   )
 }
+
 
 export default ItemDetail;
