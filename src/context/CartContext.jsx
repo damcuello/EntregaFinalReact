@@ -1,32 +1,49 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from "react";
 
-export const CartContext = createContext(null)
+export const CartContext = createContext();
 
-export const CartProvider = ({children}) => {
+const cartLS = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const [cart, setCart] = useState([])
+export const CartProvider = ({ children }) => {
+    const [cart, setCart] = useState(cartLS);
 
-    const contadorDeCart = () => {
-      return cart.reduce ((acc, item) => acc + item.contador, 0);
-    }
+    const agregar = (item, contador) => {
+        const agregado = { ...item, contador };
 
-    const precioTotalCarrito = () => {
-      return cart.reduce ((acc, item) => acc + item.precio * item.contador, 0)
-    }
-    
-    const vaciarCart = () => {
-      setCart([])
-    }
+        const newCart = [...cart];
+        const productoRepetido = newCart.find(
+            (producto) => producto.id === agregado.id
+        );
 
-    const eliminarProducto = (id) => {
-      setCart(cart.filter((item) => item.id !== id));
-    }
+        if (productoRepetido) {
+            productoRepetido.contador += contador;
+        } else {
+            newCart.push(agregado);
+        }
+        setCart(newCart);
+    };
 
-    return(
-        <CartContext.Provider value={{ cart, setCart, contadorDeCart, precioTotalCarrito, vaciarCart, eliminarProducto}}>
+    const cartNumber = () => {
+        return cart.reduce((acc, prod) => acc + prod.contador, 0);
+    };
+
+    const precioTotal = () => {
+        return cart.reduce((acc, prod) => acc + prod.price * prod.contador, 0);
+    };
+
+    const vaciar = () => {
+        setCart([]);
+    };
+
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }, [cart]);
+
+    return (
+        <CartContext.Provider
+            value={{ cart, setCart, agregar, cartNumber, precioTotal, vaciar }}
+        >
             {children}
         </CartContext.Provider>
-    )
-}
-
-export default CartProvider
+    );
+};

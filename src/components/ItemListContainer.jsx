@@ -1,45 +1,40 @@
 import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
-import { useParams } from 'react-router-dom';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
-import Loader from './Loader'
+import { useParams } from "react-router-dom";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 const ItemListContainer = () => {
-    const [items, setItems] = useState([])
-    const [loading, setLoading] = useState("true");
-    const {categoriaId} = useParams()
+
+    const [productos, setProductos] = useState([]);
+
+    const [titulo, setTitulo] = useState("Productos");
+
+    const categoria = useParams().categoria;
 
     useEffect(() => {
-        const db = getFirestore()
 
-        const itemsCollection = collection(db, "componentes")
+      const productosRef = collection(db, "productos");
+      const q = categoria ? query(productosRef, where("categoria", "==", categoria)) : productosRef;
 
-        getDocs(itemsCollection).then((snapshot) => {
-            const docs = snapshot.docs.map((doc) => doc.data())
-            setItems(docs)
-            setLoading(false)
+      getDocs(q)
+        .then((resp) => {
+
+          setProductos(
+            resp.docs.map((doc) => {
+              return { ...doc.data(), id: doc.id }
+            })
+          )
         })
-
-
-    }, [])
-
-    const filtrado = items.filter((item) => item.categoria === categoriaId);
-
-
-    if (loading === true) {
-        return <Loader />
-    } else {
-        return (
-
-            <>
-
-                {categoriaId ? <ItemList items={filtrado} /> : <ItemList items={items} />}
-
-            </>
-
-        )
-    }
+        
+    }, [categoria])
+    
+    
+  return (
+    <div>
+        <ItemList productos={productos} titulo={titulo} />
+    </div>
+  )
 }
-
 
 export default ItemListContainer

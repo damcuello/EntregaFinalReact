@@ -1,38 +1,17 @@
-import React from 'react'
-import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Button, Center } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+import { mayus } from "../auxiliar/mayus";
 
+const Item = ({ producto }) => {
 
-const Item = ({ id, name, stock, category, image }) => {
   return (
-    <div>
-      <div key={id}>
-        <Center p="1rem">
-          <Card className="card-main">
-            <CardBody>
-              <Image borderRadius="lg" src={image} />
-              <Stack mt="6" spacing="3">
-                <Heading size="md">{name}</Heading>
-
-                <Text color="blue.800" fontSize="l">
-                  Category: {category}
-                </Text>
-                <Text color="red.600" fontSize="xl">
-                  Stock: {stock}
-                </Text>
-              </Stack>
-            </CardBody>
-            <Divider />
-            <CardFooter className="card-footer">
-              <Center className="btn-center">
-                <Button variant="solid" colorScheme="blue">
-                  <Link to={`/item/${id}`}>Details</Link>
-                </Button>
-              </Center>
-            </CardFooter>
-          </Card>
-        </Center>
-      </div>
+    <div className="producto-container">
+      <h2 className="producto-titulo">{producto.titulo}</h2>
+      <img className="producto-imagen" src={producto.imagen} alt={producto.titulo}/>
+      <p className="producto-precio">${producto.precio}</p>
+      <p>Categoría: {mayus(producto.categoria)}</p>
+      <Link className="ver-mas" to={`/item/${producto.id}`}>
+        Ver mas
+      </Link>
     </div>
   );
 };

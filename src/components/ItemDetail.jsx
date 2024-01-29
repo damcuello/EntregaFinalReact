@@ -1,44 +1,43 @@
-import React from 'react'
-import { Card, CardBody, Stack, Heading, Text, Divider, CardFooter, Image } from '@chakra-ui/react'
-import ItemCount from './ItemCount'
+import { useContext, useState } from "react";
+import { mayus } from "../auxiliar/mayus";
+import ItemCount from "./ItemCount"
+import { CartContext } from "../context/CartContext";
 
 
 const ItemDetail = ({ item }) => {
+
+  const { cart, agregar } = useContext(CartContext);
+  console.log(cart);
+
+  const [cantidad, setCantidad] = useState(1);
+
+  const handleRestar = () => {
+    cantidad > 1 && setCantidad(cantidad - 1)
+  }
+
+  const handleSumar = () => {
+    cantidad < item.stock && setCantidad(cantidad + 1)
+  }
+
   return (
-    <div className='divCardDetallada'>
-      <Card maxW='sm'>
-        <CardBody>
-          <Image
-            src={item.img}
-            alt='componentes'
-            borderRadius='lg'
+    <div className="container">
+      <div className="producto-detalle">
+        <img src={item.imagen} alt={item.titulo} />
+        <div>
+          <h3 className="titulo">{item.titulo}</h3>
+          <p className="descripcion">{item.descripcion}</p>
+          <p className="categoria">Categoría: {mayus(item.categoria)}</p>
+          <p className="precio">${item.precio}</p>
+          <ItemCount
+            cantidad={cantidad}
+            handleSumar={handleSumar}
+            handleRestar={handleRestar}
+            handleAgregar={() => { agregar(item, cantidad) }}
           />
-          <Stack mt='6' spacing='3'>
-            <Heading size='md' className='tituloDetallado'>{item.titulo}</Heading>
-            <Text className='tamDetallado'>
-              Tamaño: {item.categoria}
-            </Text>
-            <Text className='idDetallado'>
-              Id: {item.id}
-            </Text>
-            <Text className='descripcionDetallada'>
-              {item.descripcion}
-            </Text>
-            <Text color='blue.600' fontSize='2xl' className='precioDetallado'>
-              ${item.precio}
-            </Text>
-          </Stack>
-        </CardBody>
-        <Divider />
-        <CardFooter>
-          <ButtonGroup spacing='2'>
-            <ItemCount item={item} />
-          </ButtonGroup>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }
 
-
-export default ItemDetail;
+export default ItemDetail

@@ -1,38 +1,19 @@
-import { useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { CartContext } from '../context/CartContext';
-import { HiMiniShoppingCart } from "react-icons/hi2";
 
 const CartWidget = () => {
-  
-  const [cart, setCart] = useContext(CartContext);
 
-  const cantidad = () => {
-    return cart.reduce((acu, item) => acu + item.stock, 0);
-  };
-
-  useEffect(() => {
-    const keepCart = localStorage.getItem('cart');
-    if (keepCart) {
-      setCart(JSON.parse(keepCart));
-    }
-  }, [setCart]);
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart])
-
+    const { cartNumber } = useContext(CartContext);
 
   return (
-    <Link to="/Cart">
-      <div>
-        <div>
-        <HiMiniShoppingCart />
-        </div>
-        <span>{cantidad()}</span>
-      </div>
-    </Link>
-  );
-};
+    <div>
+        <Link className="menu-link" to="/cart">
+            Carrito
+            <span className="numerito">{cartNumber()}</span>
+        </Link>
+    </div>
+  )
+}
 
-export default CartWidget;
+export default CartWidget

@@ -1,42 +1,43 @@
-import { useEffect, useState } from 'react'
-import ItemDetail from './ItemDetail';
-import { doc, getDoc, getFirestore } from "firebase/firestore"
-import { useParams } from 'react-router-dom'
-import Loader from './Loader';
+import { useEffect, useState } from "react"
+import ItemDetail from "./ItemDetail";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
+import Loader from "./Loader";
 
 
 const ItemDetailContainer = () => {
 
-    const { id } = useParams()
-    const [product, setProduct] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [item, setItem] = useState(null);
+    const id = useParams().id;
 
     useEffect(() => {
-        const db = getFirestore()
 
-        const oneItem = doc(db, "componentes", `${id}`);
-        getDoc(oneItem).then((snapshot) => {
-            if (snapshot.exists()) {
-                const doc = snapshot.data()
-                setProduct(doc)
-                setLoading(false)
-            }
-        })
-    }, [])
+        const docRef = doc(db, "productos", id);
+        getDoc(docRef)
+            .then((resp) => {
+                setItem(
+                    { ...resp.data(), id: resp.id }
+                );
+            })
 
-    if (loading === true) {
-        return <Loader />
-    } else {
-        return (
-            <div>
-                {product && <ItemDetail item={item} />}
-            </div>
-        )
-    }
+    }, [id])
 
 
+    return (
+        <div>
+            {loading ? (
+                <Loader />
+            ) : error ? (
+                <div className="error-container">
+                    <h1 className="titulo-error">Error</h1>
+                    <p>{error}</p>
+                </div>
+            ) : (
+                item && <ItemDetail item={item} />
+            )}
+        </div>
+    );
+};
 
-}
-
-
-export default ItemDetailContainer
+export default ItemDetailContainer;

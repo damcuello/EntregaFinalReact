@@ -1,27 +1,18 @@
 import Item from "./Item";
-import { Container } from "@chakra-ui/react";
+import { mayus } from "../auxiliar/mayus";
 
 
-const ItemList = ({ items}) => {
+const ItemList = ( {productos, titulo} ) => {
+
   return (
-    <div>
-      <Container className="catalogo">
-        {items?.map((item) => (
-          <Item
-          key={item.id}
-          id={item.id}
-          categoria={item.categoria}
-          descripcion={item.descripcion}
-          imagen={item.imagen}
-          nombre={item.nombre}
-          stock={item.stock}
-          precio={item.precio}
-          item={item}
-          />
-        ))}
-      </Container>
+    <div className="container">
+        <h2 className="main-title">{mayus(titulo)}</h2>
+
+        <div className="productos">
+            { productos.map((prod) => <Item producto={prod} key={prod.id} />) }
+        </div>
     </div>
-  );
-};
+  )
+}
 
 export default ItemList
