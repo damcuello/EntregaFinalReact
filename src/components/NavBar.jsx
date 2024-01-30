@@ -19,17 +19,17 @@ function NavBar() {
                 </MenuButton>
                 <MenuList>
                     <MenuItem>
-                        <Link to='/categoria/refrigeracion'>
+                        <Link to='/productos/refrigeracion'>
                             <p> Refrigeración Líquida</p>
                         </Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link to='/categoria/memorias'>
+                        <Link to='/productos/memorias'>
                             <p>Memorias RAM</p>
                         </Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link to='/categoria/tarjetas'>
+                        <Link to='/productos/tarjetas'>
                             <p>Placas de Video</p>
                         </Link>
                     </MenuItem>
