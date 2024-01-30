@@ -1,12 +1,15 @@
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Navbar from "./components/NavBar";
-import ItemListContainer from "./components/ItemListContainer";
-import ItemDetailContainer from "./components/ItemDetailContainer";
+import Navbar from "./components/NavBar/NavBar";
+import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
+import ItemDetailContainer from "./components/ItemDetailContainer/ItemDetailContainer";
 import { CartProvider } from "./context/CartContext";
-import Cart from "./components/Cart";
-import Checkout from "./components/Checkout";
+import Cart from "./components/Cart/Cart";
+import Checkout from "./components/Cart/Checkout";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
@@ -22,6 +25,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
           </Routes>
+          <ToastContainer />
         </BrowserRouter>
       </CartProvider>
     </div>

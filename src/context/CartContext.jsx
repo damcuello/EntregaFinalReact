@@ -2,48 +2,76 @@ import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
-const cartLS = JSON.parse(localStorage.getItem("cart")) || [];
+const carritoInicial = JSON.parse(localStorage.getItem("carrito")) || [];
 
 export const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState(cartLS);
+    // const[count, setCount] = useState(0)
 
-    const agregar = (item, contador) => {
-        const agregado = { ...item, contador };
+    const [carrito, setCarrito] = useState(carritoInicial);
 
-        const newCart = [...cart];
-        const productoRepetido = newCart.find(
-            (producto) => producto.id === agregado.id
-        );
+    const agregarAlCarrito = (item, cantidad) => {
+        const itemAgregado = { ...item, cantidad };
 
-        if (productoRepetido) {
-            productoRepetido.contador += contador;
+        const nuevoCarrito = [...carrito];
+        const estaElProducto = nuevoCarrito.find(producto => producto.id === itemAgregado.id);
+
+        if (estaElProducto) {
+            estaElProducto.cantidad += cantidad;
         } else {
-            newCart.push(agregado);
+            nuevoCarrito.push(itemAgregado);
         }
-        setCart(newCart);
-    };
+        setCarrito(nuevoCarrito);
+    }
 
-    const cartNumber = () => {
-        return cart.reduce((acc, prod) => acc + prod.contador, 0);
-    };
+    const aumentarCantidad = (itemId) => {
+        const nuevoCarrito = carrito.map(producto => {
+            if (producto.id === itemId) {
+                return { ...producto, cantidad: producto.cantidad + 1 };
+            }
+            return producto;
+        });
+        setCarrito(nuevoCarrito);
+    }
+
+    const disminuirCantidad = (itemId) => {
+        const nuevoCarrito = carrito.map(producto => {
+            if (producto.id === itemId && producto.cantidad > 1) {
+                return { ...producto, cantidad: producto.cantidad - 1 };
+            }
+            return producto;
+        });
+        setCarrito(nuevoCarrito);
+    }
+
+    const cantidadCarrito = () => {
+        return carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+    }
 
     const precioTotal = () => {
-        return cart.reduce((acc, prod) => acc + prod.price * prod.contador, 0);
-    };
+        return carrito.reduce((acc, prod) => acc + prod.precio * prod.cantidad, 0);
+    }
 
-    const vaciar = () => {
-        setCart([]);
-    };
+    const vaciarCarrito = () => {
+        setCarrito([]);
+    }
 
     useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
+        localStorage.setItem("carrito", JSON.stringify(carrito))
+    }, [carrito])
 
     return (
-        <CartContext.Provider
-            value={{ cart, setCart, agregar, cartNumber, precioTotal, vaciar }}
-        >
+        <CartContext.Provider value={{
+            carrito,
+            agregarAlCarrito,
+            cantidadCarrito,
+            precioTotal,
+            vaciarCarrito,
+            disminuirCantidad,
+            aumentarCantidad
+        }}>
             {children}
         </CartContext.Provider>
-    );
-};
+    )
+
+
+}
