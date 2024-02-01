@@ -14,6 +14,6 @@ E-commerce creado con React y Firebase.
 
 ## **Tecnologías usadas**
 
-- Framework: ![React Badge](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)
+- Framework: ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 - Librerías: ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 - Se utilizó **React Toastify** para mostrar notificaciones.
