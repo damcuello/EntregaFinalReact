@@ -1,5 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+
+
 .bg-color {
-    background-image: linear-gradient(to right,#823604,#f96400 )
+    background-image: linear-gradient(to right, #4e00ff, #1eae98);
     }
 
 .imagen-pers {
@@ -7,3 +14,96 @@
     height: 200px;
     object-fit: cover;
 }
+
+.carrito-container {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .carrito {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .carrito::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; 
+    height: 40px; 
+    background-color: #333333; 
+    z-index: -1; 
+  }
+  
+  .carrito svg {
+    position: relative;
+    z-index: 1; 
+  }
+  
+  .carrito .numerito {
+    position: absolute;
+    top: -10px;
+    right: -12px;
+    background-color: #0098ff; 
+    color: white; 
+    font-size: 12px; 
+    padding: 2px 6px; 
+    border-radius: 50%; 
+  }
+
+  .loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .custom-spinner {
+    width: 100px; 
+    height: 100px; 
+    background: linear-gradient(to right, #ff4e00, #00ff66); 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .custom-spinner .spinner-grow {
+    color: white; 
+  }
+
+  .btn-color {
+    background-color: #ff4500; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.5s ease; 
+  }
+  
+
+  .btn-color:hover {
+    background-color: #0077cc; 
+  }
+
+  .card-text {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #333;
+
+  }
+
+  h1 {
+    font-size: 2em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color:#333333
+    
+  }

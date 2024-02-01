@@ -3,14 +3,19 @@ import { CartContext } from '../../context/CartContext';
 import { useForm } from 'react-hook-form';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../../firebase/config';
+import Loader from '../Loader/Loader';
 
 const Checkout = () => {
 
     const [pedidoId, setPedidoId] = useState("");
+    const [loading, setLoading] = useState(false);
+
     const { carrito, precioTotal, vaciarCarrito } = useContext(CartContext);
     const { register, handleSubmit } = useForm();
 
     const comprar = (data) => {
+        setLoading(true);
+
         const pedido = {
             cliente: data,
             productos: carrito,
@@ -24,7 +29,10 @@ const Checkout = () => {
             setPedidoId(doc.id);
             vaciarCarrito();
         })
-    }
+        .finally (() => {
+            setLoading(false);
+        });
+    };
 
     if (pedidoId) {
         return (
@@ -37,6 +45,9 @@ const Checkout = () => {
     return (
         <div className='container mt-3'>
             <h1>Finalizar compra</h1>
+            {loading ? (
+                <Loader />
+            ) : (
             <form className="formulario" onSubmit={handleSubmit(comprar)}>
 
                 <input type="text" placeholder="Ingresá tu nombre" className='mt-3' {...register("nombre")} />
@@ -49,8 +60,9 @@ const Checkout = () => {
                 <button className="enviar btn btn-success mt-3" type="submit">Comprar</button>
 
             </form>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default Checkout

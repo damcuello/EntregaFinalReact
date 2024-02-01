@@ -1,8 +1,19 @@
-# React + Vite
+# **Tienda del Buhonero**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+E-commerce creado con React y Firebase.
 
-Currently, two official plugins are available:
+## **Funcionalidad**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Navegación por la página a través de rutas con [React Router DOM](https://www.npmjs.com/package/react-router-dom).
+- Implementación de Context usando .Provider y transferencia de información entre los componentes a través de props.
+- Gestión de base de datos y almacenamiento, registro de pedido y entrega de ID de compra a través de [Firebase](https://firebase.google.com/?hl=es).
+- Agregar productos al carrito de compras.
+- Visualizar carrito de compras, pudiendo aumentar o disminuir la cantidad de productos seleccionados.
+- Spinner de carga para recibir o enviar información de la base de datos
+
+
+## **Tecnologías usadas**
+
+- Framework: ![React Badge](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)
+- Librerías: ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+- Se utilizó **React Toastify** para mostrar notificaciones.

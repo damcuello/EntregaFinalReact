@@ -18,7 +18,7 @@ const Item = ({ producto }) => {
             </div>
           </Card.Text>
         </div>
-        <Link className="btn btn-primary mt-auto" to={`/item/${producto.id}`}>
+        <Link className="btn btn-color mt-auto" to={`/item/${producto.id}`}>
           Ver más
         </Link>
       </Card.Body>
